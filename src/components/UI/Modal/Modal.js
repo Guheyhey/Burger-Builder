@@ -12,7 +12,7 @@ class Modal extends Component {
 
   // avoiding hidden modal update when add/remove burger ingredients
   shouldComponentUpdate (nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
   }
 
   render() {
