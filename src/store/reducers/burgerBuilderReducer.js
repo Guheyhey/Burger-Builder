@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
   // ingredients: {
@@ -9,7 +10,8 @@ const initialState = {
   // },
   ingredients: null,
   totalPrice: 4,
-  error: false
+  error: false,
+  building: false
 };
 
 const INGREDIENT_PRICES = {
@@ -30,25 +32,25 @@ const reducer = (state=initialState, action) => {
 };
 
 const addIngredient = (state, action) => {
-  return {
-    ...state,
-    ingredients: {
-      ...state.ingredients,
-      [action.payload] : state.ingredients[action.payload] + 1
-    },
-    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload]
+  const updatedIngredient = { [action.payload]: state.ingredients[action.payload] + 1 };
+  const updatedIngredients = updateObject( state.ingredients, updatedIngredient );
+  const updatedState = {
+    ingredients: updatedIngredients,
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload],
+    building: true
   };
+  return updateObject( state, updatedState );
 };
 
 const removeIngredient = (state, action) => {
-  return {
-    ...state,
-    ingredients: {
-      ...state.ingredients,
-      [action.payload] : state.ingredients[action.payload] - 1
-    },
-    totalPrice: state.totalPrice - INGREDIENT_PRICES[action.payload]
+  const updatedIngredient = { [action.payload]: state.ingredients[action.payload] - 1 };
+  const updatedIngredients = updateObject( state.ingredients, updatedIngredient );
+  const updatedState = {
+    ingredients: updatedIngredients,
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload],
+    building: true
   };
+  return updateObject( state, updatedState );
 };
 
 const setIngredients = (state, action) => {
@@ -61,7 +63,8 @@ const setIngredients = (state, action) => {
       meat: action.payload.meat
     },
     totalPrice: 4,
-    error: false
+    error: false,
+    building: false
   };
 };
 

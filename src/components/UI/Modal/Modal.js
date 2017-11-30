@@ -6,9 +6,9 @@ import Backdrop from '../Backdrop/Backdrop';
 
 class Modal extends Component {
 
-  componentWillUpdate() {
-    console.log('[Modal] willupdate');
-  }
+  // componentWillUpdate() {
+  //   console.log('[Modal] willupdate');
+  // }
 
   // avoiding hidden modal update when add/remove burger ingredients
   shouldComponentUpdate (nextProps, nextState) {
